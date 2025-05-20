@@ -1,0 +1,39 @@
+main {
+
+  display: flex;
+  justify-content: center;
+  align-items: flex-start;
+  /* Điều chỉnh căn chỉnh để tránh che phần dưới */
+  height: calc(100vh - 100px);
+  /* Giảm chiều cao để không bị che bởi header */
+  padding-top: 100px;
+  overflow-y: auto;
+  /* Cho phép cuộn nếu nội dung quá dài */
+}
+
+.manage-section {
+
+  display: none;
+  padding: 2rem;
+  background-color: rgba(255, 255, 255, 1);
+  /* Màu nền nhẹ để không làm ảnh hưởng tới ảnh nền */
+  border-radius: 8px;
+  width: 80%;
+  max-width: 800px;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+  text-align: center;
+  margin-top: 20px;
+  position: relative;
+  z-index: 10;
+
+}
+
+.manage-section.active {
+  display: block;
+}
+
+
+
+.manage-section.active {
+  opacity: 1;
+}
