@@ -1,0 +1,409 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Quản Lý Quán Bán Đồ Uống</title>
+  <link rel="stylesheet" href="css/first.css">
+
+  <link rel="stylesheet" href="css/main.css">
+  <link rel="stylesheet" href="css/modal.css">
+  <link rel="stylesheet" href="css/logo.css">
+  <link rel="stylesheet" href="css/kho.css">
+</head>
+
+<body>
+  <header>
+    <h1><a href="main.html">HOANG DRINK</a></h1>
+    <nav>
+
+      <button onclick="showSection('invoices-section')">Quản Lý Hóa Đơn</button>
+      <button onclick="showSection('products-section')">Quản Lý Sản Phẩm</button>
+      <button onclick="showSection('employees-section')">Quản Lý Nhân Viên</button>
+      <button onclick="showSection('customers-section')">Quản Lý Khách Hàng</button>
+      <button onclick="showSection('vouchers-section')">Quản Lý Voucher</button>
+      <button onclick="showSection('invoice-section')">Quản lý đơn hàng</button>
+      <button onclick="showSection('inventory-section')">Quản lý kho</button>
+    </nav>
+    <div id="logo-container">
+      <img src="avt.png" alt="Logo" id="logo" onclick="toggleAccountMenu()">
+    </div>
+  </header>
+
+  <main id="main-content">
+
+
+    <!-- Quản lý Sản Phẩm -->
+    <section id="products-section" class="manage-section">
+      <h2>Quản Lý Sản Phẩm</h2>
+
+      <!-- Form thêm sản phẩm -->
+      <form id="add-product-form" style="margin-bottom: 20px;">
+        <input type="text" id="add-product-name" placeholder="Nhập tên sản phẩm" required />
+        <input type="number" id="add-product-price" placeholder="Nhập giá sản phẩm" required />
+        <input type="text" id="add-product-image" placeholder="Nhập URL hình ảnh" required />
+        <button type="submit">Thêm sản phẩm</button>
+      </form>
+
+      <!-- Form sửa sản phẩm (ẩn) -->
+      <form id="edit-product-form" style="display: none; margin-bottom: 20px;">
+        <input type="hidden" id="edit-product-id" />
+        <input type="text" id="edit-product-name" placeholder="Tên sản phẩm" required />
+        <input type="number" id="edit-product-price" placeholder="Giá sản phẩm" required />
+        <input type="text" id="edit-product-image" placeholder="URL hình ảnh" required />
+        <button type="submit">Cập nhật sản phẩm</button>
+        <button type="button" onclick="document.getElementById('edit-product-form').style.display='none';">Hủy</button>
+      </form>
+
+      <!-- Bảng danh sách sản phẩm -->
+      <table id="products-table" border="1" cellpadding="5" cellspacing="0"
+        style="width:100%; border-collapse: collapse;">
+        <thead>
+          <tr>
+            <th>ID</th>
+            <th>Tên Sản Phẩm</th>
+            <th>Giá</th>
+            <th>Hành Động</th>
+          </tr>
+        </thead>
+        <tbody>
+          <!-- Nội dung sản phẩm sẽ được thêm vào đây bởi JS -->
+        </tbody>
+      </table>
+    </section>
+
+    <!-- Hiển thị sản phẩm ở trang chính -->
+    <section class="products" id="featured-products" style="margin-top: 40px;">
+      <h2>Sản Phẩm</h2>
+      <div class="product-list" style="display: flex; flex-wrap: wrap; gap: 15px;">
+        <!-- Các sản phẩm được JS thêm vào đây -->
+      </div>
+    </section>
+
+
+
+
+
+  </main>
+
+
+  <!-- Quản lý Hóa Đơn -->
+  <section id="invoices-section" class="manage-section">
+    <h2>Quản Lý Hóa Đơn</h2>
+    <table id="invoices-table">
+      <thead>
+        <tr>
+          <th>ID</th>
+          <th>Tên Nhân Viên</th>
+          <th>Tên Khách Hàng</th>
+          <th>Số Điện Thoại</th>
+          <th>Ngày Lập</th>
+          <th>Tổng Tiền</th>
+          <th>Giảm giá</th>
+          <th>Tổng sau giảm giá</th>
+          <th>Hành Động</th>
+        </tr>
+      </thead>
+      <tbody>
+        <!-- Hóa đơn sẽ được hiển thị tại đây -->
+      </tbody>
+    </table>
+  </section>
+  <!-- Quản lý Nhân Viên -->
+  <section id="employees-section" class="manage-section">
+    <h2>Quản Lý Nhân Viên</h2>
+    <div>
+      <input type="text" id="search-phone" placeholder="Nhập số điện thoại..." />
+      <button onclick="searchEmployees()">Tìm kiếm</button>
+    </div>
+    <button onclick="showAddEmployeeForm()">Thêm Nhân Viên</button>
+    <div id="add-employees-form" style="display: none;">
+      <h3>Nhập Thông Tin Nhân Viên</h3>
+      <label for="item-name">Họ Tên:</label>
+      <input type="text" id="item-name" required><br>
+
+      <label for="item-phone">Số Điện Thoại:</label>
+      <input type="number" id="item-phone" required><br>
+
+      <label for="item-adress">Địa Chỉ:</label>
+      <input type="text" id="item-adress" required><br>
+
+      <label for="item-cccd">CCCD:</label>
+      <input type="number" id="item-cccd" required><br>
+
+      <label for="item-salary">Lương:</label>
+      <input type="number" id="item-salary" required><br>
+      <button onclick="addEmployee()">Lưu</button>
+      <button onclick="hideAddEmployeeForm()">Hủy</button>
+    </div>
+
+    <!-- Form Sửa Mặt Hàng -->
+    <div id="edit-employees-form" style="display: none;">
+      <h3>Chỉnh Sửa Thông Tin Nhân Viên</h3>
+      <label for="edit-item-name">Họ Tên:</label>
+      <input type="text" id="edit-item-name" required><br>
+
+      <label for="edit-item-phone">Số Điện Thoại:</label>
+      <input type="number" id="edit-item-phone" required><br>
+
+      <label for="edit-item-adress">Địa Chỉ:</label>
+      <input type="text" id="edit-item-adress" required><br>
+
+      <label for="edit-item-cccd">CCCD:</label>
+      <input type="number" id="edit-item-cccd" required><br>
+
+      <label for="edit-item-salary">Lương:</label>
+      <input type="number" id="edit-item-salary" required><br>
+      <button onclick="editEmployee()">Lưu</button>
+      <button onclick="hideEditEmployeeForm()">Hủy</button>
+    </div>
+    <table id="employees-table">
+      <thead>
+        <tr>
+          <th>ID</th>
+          <th>Họ Tên</th>
+          <th>Số Điện Thoại</th>
+          <th>Địa Chỉ</th>
+          <th>Căn Cước</th>
+          <th>Lương</th>
+          <th>Hành Động</th>
+        </tr>
+      </thead>
+      <tbody>
+        <!-- Dữ liệu nhân viên sẽ được thêm tại đây -->
+      </tbody>
+    </table>
+  </section>
+
+  <!-- Quản lý Khách Hàng -->
+  <section id="customers-section" class="manage-section">
+    <h2>Quản Lý Khách Hàng</h2>
+    <div>
+      <label for="search-phone1">Tìm kiếm theo số điện thoại:</label>
+      <input type="text" id="search-phone1" placeholder="Nhập số điện thoại">
+      <button onclick="searchCustomer()">Tìm kiếm</button>
+    </div>
+    <button onclick="showAddCustomerForm()">Thêm Khách Hàng</button>
+
+    <div id="add-customer-form" style="display: none;">
+      <h3>Nhập Thông Tin Khách Hàng</h3>
+      <label for="item-name1">Họ Tên:</label>
+      <input type="text" id="item-name1" required><br>
+
+      <label for="item-phone1">Số Điện Thoại:</label>
+      <input type="number" id="item-phone1" required><br>
+      <label for="item-diem">Điểm:</label>
+      <input type="number" id="item-diem" required><br>
+      <button onclick="addCustomer()">Lưu</button>
+      <button onclick="hideAddCustomerForm()">Hủy</button>
+    </div>
+
+    <!-- Form Sửa Mặt Hàng -->
+    <div id="edit-customer-form" style="display: none;">
+      <h3>Chỉnh Sửa Thông Tin Khách Hàng</h3>
+      <label for="edit-item-name1">Họ Tên:</label>
+      <input type="text" id="edit-item-name1" required><br>
+
+      <label for="edit-item-phone1">Số Điện Thoại:</label>
+      <input type="number" id="edit-item-phone1" required><br>
+
+      <label for="edit-item-diem">Điểm:</label>
+      <input type="number" id="edit-item-diem" required><br>
+      <button onclick="editCustomer()">Lưu</button>
+      <button onclick="hideEditProductForm()">Hủy</button>
+    </div>
+
+    <table id="customers-table">
+      <thead>
+        <tr>
+          <th>ID</th>
+          <th>Họ Tên</th>
+          <th>Số Điện Thoại</th>
+          <th>Số Điểm Tích Lũy</th>
+          <th>Hành Động</th>
+        </tr>
+      </thead>
+      <tbody>
+        <!-- Dữ liệu khách hàng sẽ được thêm tại đây -->
+      </tbody>
+    </table>
+  </section>
+
+  <!-- Quản lý Đơn Hàng -->
+  <section id="invoice-section" class="manage-section">
+    <h2>Chi Tiết Đơn Hàng</h2>
+    <table id="invoice-table">
+      <thead>
+        <tr>
+          <th>Sản phẩm</th>
+          <th>Số lượng</th>
+          <th>Giá</th>
+          <th>Tổng tiền</th>
+          <th>Hành động</th>
+        </tr>
+      </thead>
+      <tbody></tbody>
+    </table>
+
+    <p>
+      Mã khuyến mãi:
+      <input type="text" id="promo-code" placeholder="Nhập mã khuyến mãi">
+      <button onclick="applyDiscountCode()">Áp dụng</button>
+    </p>
+    <p>Tổng tiền: <span id="total-amount">0</span> VND</p>
+    <p>Giảm giá: <span id="discount-amount">0</span> VND</p>
+    <p>Sau khi giảm: <span id="final-amount">0</span> VND</p>
+    <button onclick="generateInvoice()">Xuất hóa đơn</button>
+  </section>
+
+
+  <section id="vouchers-section" class="manage-section">
+    <h2>Quản Lý Voucher</h2>
+    <div id="voucher-form">
+      <input type="text" id="voucher-code" placeholder="Nhập mã voucher" required>
+      <input type="number" id="voucher-discount" placeholder="Nhập % giảm" required>
+      <button onclick="addVoucher()">Thêm Voucher</button>
+    </div>
+
+
+    <table id="vouchers-table">
+      <thead>
+        <tr>
+          <th>Mã Voucher</th>
+          <th>% Giảm</th>
+          <th>Hành Động</th>
+        </tr>
+      </thead>
+      <tbody>
+        <!-- Vouchers sẽ được hiển thị tại đây -->
+      </tbody>
+    </table>
+  </section>
+
+
+
+  <section id="inventory-section" class="manage-section">
+    <h2>Quản Lý Kho</h2>
+    <div>
+      <label for="search-trangthai">Tìm kiếm theo trạng thái:</label>
+      <input type="text" id="search-trangthai" placeholder="Nhập trạng thái">
+      <button onclick="searchInventory()">Tìm kiếm</button>
+    </div>
+    <button onclick="showAddInventoryForm()">Thêm Mặt Hàng</button>
+
+    <!-- Form Thêm Mặt Hàng -->
+    <div id="add-inventory-form" style="display: none;">
+      <h3>Nhập Thông Tin Mặt Hàng</h3>
+      <label for="item-name2">Tên Hàng:</label>
+      <input type="text" id="item-name2" required><br>
+
+      <label for="item-quantity">Số Lượng:</label>
+      <input type="number" id="item-quantity" required><br>
+
+      <label for="item-unit">Đơn Vị:</label>
+      <input type="text" id="item-unit" required><br>
+
+      <label for="item-price">Giá Nhập:</label>
+      <input type="number" id="item-price" required><br>
+
+      <label for="item-date">Ngày Nhập:</label>
+      <input type="date" id="item-date" required><br>
+
+      <label for="item-status">Trạng Thái:</label>
+      <input type="text" id="item-status" required><br>
+
+      <label for="item-note">Ghi Chú:</label>
+      <input type="text" id="item-note" required><br>
+
+      <button onclick="addInventory()">Lưu</button>
+      <button onclick="hideAddInventoryForm()">Hủy</button>
+    </div>
+
+    <!-- Form Sửa Mặt Hàng -->
+    <div id="edit-inventory-form" style="display: none;">
+      <h3>Chỉnh Sửa Thông Tin Mặt Hàng</h3>
+      <label for="edit-item-name2">Tên Hàng:</label>
+      <input type="text" id="edit-item-name2" required><br>
+
+      <label for="edit-item-quantity">Số Lượng:</label>
+      <input type="number" id="edit-item-quantity" required><br>
+
+      <label for="edit-item-unit">Đơn Vị:</label>
+      <input type="text" id="edit-item-unit" required><br>
+
+      <label for="edit-item-price">Giá Nhập:</label>
+      <input type="number" id="edit-item-price" required><br>
+
+      <label for="edit-item-date">Ngày Nhập:</label>
+      <input type="date" id="edit-item-date" required><br>
+
+      <label for="edit-item-status">Trạng Thái:</label>
+      <input type="text" id="edit-item-status" required><br>
+
+      <label for="edit-item-note">Ghi Chú:</label>
+      <input type="text" id="edit-item-note" required><br>
+
+      <button onclick="saveEditedInventory()">Lưu</button>
+      <button onclick="hideEditInventoryForm()">Hủy</button>
+    </div>
+
+    <table id="inventory-table">
+      <thead>
+        <tr>
+          <th>ID</th>
+          <th>Tên Hàng</th>
+          <th>Số Lượng</th>
+          <th>Đơn Vị</th>
+          <th>Giá Nhập</th>
+          <th>Ngày Nhập</th>
+          <th>Trạng Thái</th>
+          <th>Ghi Chú</th>
+          <th>Hành Động</th>
+        </tr>
+      </thead>
+      <tbody>
+        <!-- Dữ liệu kho sẽ được thêm tại đây -->
+      </tbody>
+    </table>
+  </section>
+
+
+
+
+
+  <!-- Modal hóa đơn -->
+  <div id="invoiceModal" class="modall" style="display: none;">
+    <div class="modal-contentt">
+      <span class="close" onclick="closeInvoiceModal()">&times;</span>
+      <h2>Hóa Đơn</h2>
+      <div id="invoiceDetails"></div>
+      <button id="bill" onclick="closeInvoiceModal()">Thanh Toán</button>
+    </div>
+  </div>
+
+
+  <div id="accountModal" class="modal">
+    <div class="modal-content">
+      <span class="close" onclick="closeAccountMenu()">&times;</span>
+      <h2>Thông tin Tài Khoản</h2>
+      <p><strong>Tên người dùng:</strong> </p>
+      <p><strong>Email:</strong> </p>
+      <p><strong>Số điện thoại:</strong> </p>
+      <button onclick="logout()">Đăng xuất</button>
+    </div>
+  </div>
+
+
+
+
+  <script src="js/sanpham.js" defer></script>
+  <script src="js/voucher.js" defer></script>
+  <script src="js/modal.js" defer></script>
+  <script src="js/kho.js" defer></script>
+  <script src="js/nhanvien.js" defer></script>
+  <script src="js/khachhang.js" defer></script>
+
+</body>
+
+</html>
